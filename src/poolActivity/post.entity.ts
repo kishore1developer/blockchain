@@ -27,14 +27,10 @@ export class PoolActivityPostEntity {
     transactionHash?: string;
 
     @Column({default:null})
-    returnValues?: string;
-
-    @Column({default:null})
     event?: string;
 
     @Column({default:null})
     signature?: string;
-
 
     @Column({default:null})
     transactionIndex?: string;
@@ -73,10 +69,10 @@ export class PoolActivityPostEntity {
     tick?: string;
 
     @Column({default:null})
-    rawdata?: string;
+    rawData?: string;
 
     @Column({default:null})
-    rawtopics?: string;
+    rawTopics?: string;
 
     @Column({default:null})
     timestamp?: string;

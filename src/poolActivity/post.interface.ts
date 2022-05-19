@@ -1,3 +1,5 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 export interface PoolActivityPost {
     id?: string;
     address?: string;
@@ -6,10 +8,8 @@ export interface PoolActivityPost {
     logIndex?: string;
     removed?: string;
     transactionHash?: string;
-    returnValues?: string;
     event?: string;
     signature?: string;
-    raw?: string;
     transactionIndex?: string;
     owner?: string;
     recipient?: string;
@@ -23,6 +23,11 @@ export interface PoolActivityPost {
     liquidity?: string;
     tick?: string;
     timestamp?: string;
-    rawdata?: string;
-    rawtopics?: string;
+    rawData?: string;
+    rawTopics?: string;
+}
+
+export class poolActivityVal {
+    @ApiProperty()
+    event?: string;
 }

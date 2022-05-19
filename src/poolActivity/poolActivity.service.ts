@@ -12,7 +12,17 @@ export class PoolActivityService {
         @InjectRepository(PoolActivityPostEntity)
         private readonly poolActivityPostRepository: Repository<PoolActivityPostEntity>,
     ) { }
-    createPost(poolActivityPost: PoolActivityPost): Promise<PoolActivityPost> {
-        return this.poolActivityPostRepository.save(poolActivityPost);
+
+    async createPost(poolActivityPost: PoolActivityPost) {
+        await this.poolActivityPostRepository.save(poolActivityPost);
+    }
+
+    async findAllPoolActivity(event) {
+        try{
+            const result =await this.poolActivityPostRepository.find({where:event})
+            return result;
+        }catch(err){
+            return err;
+        }
     }
 }
