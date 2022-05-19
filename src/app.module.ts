@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CustomerModule } from './customer/customer.module';
+import { PoolActivityModule } from './poolActivity/poolActivity.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { CustomerModule } from './customer/customer.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    CustomerModule
+    CustomerModule,
+    PoolActivityModule
   ],
   controllers: [AppController],
   providers: [AppService],
