@@ -19,7 +19,7 @@ export class PoolActivityService {
 
     async findAllPoolActivity(event) {
         try{
-            const result =await this.poolActivityPostRepository.find({where:event})
+            const result = await this.poolActivityPostRepository.find({where:event});
             return result;
         }catch(err){
             return err;

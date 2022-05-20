@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CustomerModule } from './customer/customer.module';
+import { PoolModule } from './pool/pool.module';
 import { PoolActivityModule } from './poolActivity/poolActivity.module';
 
 @Module({
@@ -19,8 +19,8 @@ import { PoolActivityModule } from './poolActivity/poolActivity.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    CustomerModule,
-    PoolActivityModule
+    PoolActivityModule,
+    PoolModule
   ],
   controllers: [AppController],
   providers: [AppService],

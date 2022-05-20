@@ -76,4 +76,7 @@ export class PoolActivityPostEntity {
 
     @Column({default:null})
     timestamp?: string;
+    
+    @Column({default:null})
+    poolPair?: string;
 }

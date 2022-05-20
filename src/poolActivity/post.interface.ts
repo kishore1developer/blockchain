@@ -25,9 +25,21 @@ export interface PoolActivityPost {
     timestamp?: string;
     rawData?: string;
     rawTopics?: string;
+    poolPair?: string;
 }
 
 export class poolActivityVal {
     @ApiProperty()
     event?: string;
+    @ApiProperty()
+    poolPair?: string;
+}
+
+export class reIndexVal{
+    @ApiProperty()
+    contractAddress?: string;
+    @ApiProperty()
+    contractAbi?: string;
+    @ApiProperty()
+    poolPair?: string;
 }
