@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('Black Chain')
+    .setTitle('Block Chain')
     .setDescription('A simple backend application for analyzing Uniswap pools.')
     .setVersion('1.0')
     .build();

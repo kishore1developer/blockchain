@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeleteResult, In, Repository } from 'typeorm';
 
 import { PoolActivityPostEntity } from './post.entity';
 import { PoolActivityPost } from './post.interface';
@@ -14,7 +14,20 @@ export class PoolActivityService {
     ) { }
 
     async createPost(poolActivityPost: PoolActivityPost) {
-        await this.poolActivityPostRepository.save(poolActivityPost);
+        try{
+            await this.poolActivityPostRepository.save(poolActivityPost);
+        }catch(err){
+            return err;
+        }
+    }
+
+    async deletePoolPair(poolPair: string) {
+        try{
+            const result = await this.poolActivityPostRepository.delete({'poolPair': poolPair});
+            return result;
+        }catch(err){
+            return err;
+        }
     }
 
     async findAllPoolActivity(event) {

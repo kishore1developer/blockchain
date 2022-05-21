@@ -22,17 +22,34 @@ export class PoolActivityContoller {
 
         let latest_block = await web3.eth.getBlockNumber();
         let historical_block = latest_block - 10000; // you can also change the value to 'latest' if you have a upgraded rpc
-        await this.swap(web3, contract, historical_block, body);
-        await this.burn(web3, contract, historical_block, body);
-        await this.collect(web3, contract, historical_block, body);
-        await this.collectProtocol(web3, contract, historical_block, body);
-        await this.flash(web3, contract, historical_block, body);
-        await this.increaseObservationCardinalityNext(web3, contract, historical_block, body);
-        await this.initialize(web3, contract, historical_block, body);
-        await this.mint(web3, contract, historical_block, body);
-        await this.setFeeProtocol(web3, contract, historical_block, body);
 
-        return 'Pool Activity Created Successfully';
+        const poolPairLength = await this.poolActivityService.findAllPoolActivity({ poolPair: body.poolPair });
+        if (poolPairLength.length == 0) {
+            await this.swap(web3, contract, historical_block, body);
+            await this.burn(web3, contract, historical_block, body);
+            await this.collect(web3, contract, historical_block, body);
+            await this.collectProtocol(web3, contract, historical_block, body);
+            await this.flash(web3, contract, historical_block, body);
+            await this.increaseObservationCardinalityNext(web3, contract, historical_block, body);
+            await this.initialize(web3, contract, historical_block, body);
+            await this.mint(web3, contract, historical_block, body);
+            await this.setFeeProtocol(web3, contract, historical_block, body);
+            return 'Pool Activity Created Successfully';
+        } else {
+            const result = await this.poolActivityService.deletePoolPair(body.poolPair);
+            if (result.affected != 0) {
+                await this.swap(web3, contract, historical_block, body);
+                await this.burn(web3, contract, historical_block, body);
+                await this.collect(web3, contract, historical_block, body);
+                await this.collectProtocol(web3, contract, historical_block, body);
+                await this.flash(web3, contract, historical_block, body);
+                await this.increaseObservationCardinalityNext(web3, contract, historical_block, body);
+                await this.initialize(web3, contract, historical_block, body);
+                await this.mint(web3, contract, historical_block, body);
+                await this.setFeeProtocol(web3, contract, historical_block, body);
+                return 'Pool Activity Created Successfully';
+            }
+        }
     }
 
     @Post()
@@ -229,7 +246,7 @@ export class PoolActivityContoller {
             await this.poolActivityService.createPost(poolActivity);
         }
     };
-    
+
     async increaseObservationCardinalityNext(web3, contract, historical_block, body) {
         var i = null;
         const data_events = await contract.getPastEvents("IncreaseObservationCardinalityNext", { fromBlock: historical_block, toBlock: 'latest' });
@@ -303,7 +320,7 @@ export class PoolActivityContoller {
             await this.poolActivityService.createPost(poolActivity);
         }
     };
-    
+
     async mint(web3, contract, historical_block, body) {
         var i = null;
         const data_events = await contract.getPastEvents("Mint", { fromBlock: historical_block, toBlock: 'latest' });
@@ -340,7 +357,7 @@ export class PoolActivityContoller {
             await this.poolActivityService.createPost(poolActivity);
         }
     };
-    
+
     async setFeeProtocol(web3, contract, historical_block, body) {
         var i = null;
         const data_events = await contract.getPastEvents("SetFeeProtocol", { fromBlock: historical_block, toBlock: 'latest' });
