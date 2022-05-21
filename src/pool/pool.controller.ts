@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
-import { ApiBody, ApiTags } from "@nestjs/swagger";
+import { ApiBody, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { PoolService } from "./pool.service";
 import { poolVal } from "./post.interface";
 
@@ -17,6 +17,10 @@ export class PoolContoller {
     }
     
     @Post('/listPairName')
+    @ApiOperation({
+        summary: 'listPairName',
+        description: 'To list all available pair collection '
+    })
     findAllPairName() {
         try{
             return this.poolService.findAllPairName();

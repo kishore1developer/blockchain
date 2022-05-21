@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
-import { ApiBody, ApiTags } from "@nestjs/swagger";
+import { ApiBody, ApiOperation, ApiTags } from "@nestjs/swagger";
 import ABI from "../abi.json";
 import { PoolActivityService } from "./poolActivity.service";
 import { PoolActivityPost, poolActivityVal, reIndexVal } from "./post.interface";
@@ -12,6 +12,10 @@ export class PoolActivityContoller {
 
     @Post('/reIndexing')
     @ApiBody({ type: reIndexVal })
+    @ApiOperation({
+        summary: 'ReIndexing',
+        description: 'To fetch data’s from Uniswap and store in our database'
+    })
     async storeBlockVal(@Body() body) {
         const web3 = new Web3("https://mainnet.infura.io/v3/b945d3c85e8e4bf7b8db8a484ca166a0");
 
@@ -54,6 +58,10 @@ export class PoolActivityContoller {
 
     @Post()
     @ApiBody({ type: poolActivityVal })
+    @ApiOperation({
+        summary: 'PoolActivity',
+        description: 'To filter and list activities based on provided pair'
+    })
     findAll(@Body() body) {
         try {
             return this.poolActivityService.findAllPoolActivity(body);
